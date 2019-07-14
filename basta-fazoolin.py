@@ -36,6 +36,12 @@ class Franchise:
         return available_menus
 
 
+class Business:
+    def __init__(self, name, franchises):
+        self.name = name
+        self.franchises = franchises
+
+
 items = {
     'pancakes': 7.50, 'waffles': 9.00, 'burger': 11.00, 'home fries': 4.50, 'coffee': 1.50, 'espresso': 3.00,
     'tea': 1.00, 'mimosa': 10.50, 'orange juice': 3.50
@@ -78,9 +84,22 @@ new_installment = Franchise("12 East Mulberry Street", [brunch, early_bird, dinn
 # print(flagship_store)
 # print(new_installment)
 
-print(new_installment.available_menus(time(hour=12).isoformat(timespec='hours')))
+# print(new_installment.available_menus(time(hour=12).isoformat(timespec='hours')))
 
-print(new_installment.available_menus(time(hour=17).isoformat(timespec='hours')))
+# print(new_installment.available_menus(time(hour=17).isoformat(timespec='hours')))
+
+basta_fazoolin = Business("Basta Fazoolin' with my Heart", [flagship_store, new_installment])
+
+items5 = {
+    'arepa pabellon': 7.00, 'pernil arepa': 8.50, 'guayanes arepa': 8.00, 'jamon arepa': 7.50
+}
+arepas_menu = Menu("Take a'Arepa", items5, time(hour=10).isoformat(timespec='hours'),
+                   time(hour=20).isoformat(timespec='hours'))
+
+arepas_place = Franchise("189 Fitzgerald Avenue", [brunch, early_bird, dinner, kids, arepas_menu])
+
+arepas_business = Business("Take a' Arepa", [arepas_place])
+
 
 
 
