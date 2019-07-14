@@ -1,7 +1,8 @@
 from datetime import time
 
 
-class Menu:
+class Menu():
+
     def __init__(self, name, items, start_time, end_time):
         self.name = name
         self.items = items
@@ -9,14 +10,30 @@ class Menu:
         self.end_time = end_time
 
     def __repr__(self):
-        return "This is the {} menu, and it is available between {}:00 - {}:00.".format(self.name, self.start_time,
-                                                                                        self.end_time)
+        return "{} Menu, available between {}:00 - {}:00.".format(self.name.title(), self.start_time, self.end_time)
 
     def calculate_bill(self, purchased_items):
         total_bill = 0.00
         for item in purchased_items:
             total_bill += self.items[item]
         return total_bill
+
+
+class Franchise:
+
+    def __init__(self, address, menus):
+        self.address = address
+        self.menus = menus
+
+    def __repr__(self):
+        return "The restaurant is located in {}.".format(self.address)
+
+    def available_menus(self, time):
+        available_menus = []
+        for menu in self.menus:
+            if time <= menu.end_time and time >= menu.start_time:
+                available_menus.append(menu)
+        return available_menus
 
 
 items = {
@@ -46,13 +63,25 @@ items4 = {
 
 kids = Menu("kids", items4, time(hour=11).isoformat(timespec='hours'), time(hour=21).isoformat(timespec='hours'))
 
-print(kids)
+# print(kids)
 
 bill = brunch.calculate_bill(["pancakes", "home fries", "coffee"])
 
-print(bill)
+# print(bill)
 
-print(early_bird.calculate_bill(["salumeria plate", "mushroom ravioli (vegan)"]))
+# print(early_bird.calculate_bill(["salumeria plate", "mushroom ravioli (vegan)"]))
+
+flagship_store = Franchise("1232 West End Road", [brunch, early_bird, dinner, kids])
+
+new_installment = Franchise("12 East Mulberry Street", [brunch, early_bird, dinner, kids])
+
+# print(flagship_store)
+# print(new_installment)
+
+print(new_installment.available_menus(time(hour=12).isoformat(timespec='hours')))
+
+print(new_installment.available_menus(time(hour=17).isoformat(timespec='hours')))
+
 
 
 
